@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Webhook Notification</title>
+    <title>Tower Strike</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,11 +12,13 @@
             display: flex;
             height: 100vh;
             flex-direction: column;
+            background-color: #2f4f4f; /* Dark Gray Background */
+            color: #ffffff; /* White Text */
         }
 
         .topbar {
             width: 100%;
-            background-color: #333;
+            background-color: #006400; /* Dark Green Background */
             color: white;
             display: flex;
             align-items: center;
@@ -43,7 +45,7 @@
 
         .sidebar {
             width: 200px;
-            background-color: #333;
+            background-color: #006400; /* Dark Green Background */
             color: white;
             display: flex;
             flex-direction: column;
@@ -52,16 +54,16 @@
         }
 
         .sidebar button {
-            background-color: #444;
-            color: gray;
+            background-color: #008000; /* Green Background */
+            color: white;
             border: none;
             padding: 10px;
             margin: 5px 0;
-            cursor: not-allowed;
+            cursor: pointer;
         }
 
         .sidebar button.active, .sidebar button.home {
-            background-color: #1e90ff;
+            background-color: #00a000; /* Bright Green Background */
             color: white;
             cursor: pointer;
         }
@@ -93,11 +95,10 @@
             margin-top: 10px; /* Adjusted margin */
         }
 
-
         button {
             padding: 10px 20px;
             border: none;
-            background-color: #1e90ff;
+            background-color: #00a000; /* Bright Green Background */
             color: white;
             cursor: pointer;
         }
@@ -113,13 +114,14 @@
             padding: 20px;
             background-color: #f9f9f9;
             margin-top: 20px;
+            color: #000; /* Black Text for Frame Content */
         }
     </style>
 </head>
 <body>
     <div class="topbar">
         <img src="your-logo-url.png" alt="Logo">
-        <h1>System Controller</h1>
+        <h1>Tower Strike</h1>
         <div style="width: 60px;"></div>
     </div>
     <div class="container">
@@ -131,14 +133,15 @@
         </div>
         <div class="content">
             <div class="description">
-                <h2>Welcome to the System Controller</h2>
-                <p>This website allows you to send notifications to a Discord server using webhooks.</p>
-                <p>Use the WebHookController button to send custom messages to your Discord channel.</p>
+                <h2>Welcome to the Tower Strike Community</h2>
+                <p>Tower Strike is an exciting tower defense game where you strategize to protect your base from waves of enemies.</p>
+                <p>Join our community to get the latest updates, share your strategies, and connect with other players.</p>
+                <p>Use the WebHookController to send custom messages to our Discord channel.</p>
                 <p>More features will be added soon.</p>
             </div>
             <div id="messageContainer">
-                <input type="text" id="messageInput" placeholder="Enter your message">
                 <input type="text" id="webhookInput" placeholder="Discord Webhook URL">
+                <input type="text" id="messageInput" placeholder="Enter your message">
                 <button id="confirmButton">Confirm Message</button>
             </div>
             <div id="frame">
@@ -203,5 +206,3 @@
     </script>
 </body>
 </html>
-
-im naming everything I saw and tell me if you spotted where dns controls could be 'On the side bar In settings I saw: General, collaborators, Moderation ioptions, Branches, tags, rules, actions, webhooks, enviroments, codespaces, pages, code security and analysis, deploy keys, secrets and variables, githubapps, email notifications. On the top for the resporitory thiongy I saw: code, issues, pull requests, actions, projects, wiki, security, insights, settings(Where im in currently)
