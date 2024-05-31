@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Strike</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+            background-color: #242424;
+            color: #ffffff;
+            overflow-y: scroll;
+        }
+
+        .topbar {
+            width: 100%;
+            background-color: #101010;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .topbar img {
+            height: 40px;
+            margin-right: 20px;
+        }
+
+        .topbar h1 {
+            flex-grow: 1;
+            text-align: center;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #101010;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar button {
+            background-color: #222;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar button:hover {
+            background-color: #555;
+        }
+
+        .sidebar button i {
+            margin-right: 10px;
+        }
+
+        .sidebar button.active {
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .description, #messageContainer, #frame, #webhookContainer {
+            display: none;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .description {
+            align-self: flex-start;
+        }
+
+        .description h2 {
+            margin-left: 10px;
+        }
+
+        .description p {
+            margin-left: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #messageInput {
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:disabled {
+            background-color: #222;
+            color: gray;
+            cursor: not-allowed;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: #555;
+        }
+
+        #frame {
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: #f9f9f9;
+            margin-top: 20px;
+            color: #000;
+            border-radius: 5px;
+        }
+
+        .description h2, .description p {
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-around;
+                box-shadow: none;
+            }
+
+            .content {
+                padding: 10px;
+            }
+        }
+
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            margin-top: 30px;
+            margin-left: 10px;
+        }
+
+        .team .member {
+            background-color: #333;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 20px;
+            width: 180px;
+            text-align: center;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team .member:hover {
+            transform: scale(1.05);
+        }
+
+        .team .member img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .team .member h3 {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .team .member p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .role-green { color: #00ff00; }
+        .role-purple { color: #800080; }
+        .role-cyan { color: #00ffff; }
+        .role-dark-green { color: #006400; }
+        .role-lime { color: #00ff00; }
+        .role-light-gray { color: #d3d3d3; }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="topbar">
+        <img src="your-logo-url.png" alt="Logo">
+        <h1>Tower Strike</h1>
+        <div style="width: 60px;"></div>
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <button id="homeButton" class="home active"><i class="fas fa-home"></i> Home</button>
+            <button disabled><i class="fas fa-lock"></i> Disabled</button>
+            <button disabled><i class="fas fa-lock"></i> Disabled</button>
+            <button id="webhookController"><i class="fas fa-paper-plane"></i> WebHookController</button>
+        </div>
+        <div class="content">
+            <div class="description">
+                <h2>- Description</h2>
+                <p>Welcome to the Tower Strike Community</p>
+                <p>Tower Strike is an exciting tower defense game where you strategize to protect your base from waves of enemies.</p>
+                <p>Join our community to get the latest updates, share your strategies, and connect with other players.</p>
+                <p>More features will be added soon.</p>
+                <h2>- The Team</h2>
+                <div class="team">
+                    <div class="member">
+                        <img src="your-image-url.png" alt="">
+                        <h3>mirkokraft</h3>
+                        <p class="role-green">Owner</p>
+                    </div>
+                    <div class="member">
+                        <img src="your-image-url.png" alt="">
+                        <h3>Darth_Vader</h3>
+                        <p class="role-purple">Head Developer</p>
+                    </div>
+                    <div class="member">
+                        <img src="your-image-url.png" alt="">
+                        <h3>Adolf Ragequitler</h3>
+                        <p class="role-cyan">Senior Developer / Marketing Head</p>
+                    </div>
+                    <div class="member">
+                        <img src="your-image-url.png" alt="">
+                        <h3>Happy Bob</h3>
+                        <p class="role-dark-green">Experienced Developer</p>
+                    </div>
+		    <div class="member">
+                        <img src="your-image-url.png" alt="">
+                        <h3>ƃoouʞ</h3>
+                        <p class="role-dark-green">Experienced Developer</p>
+                    </div>
+                    <div class="member">
+                        <img src="your-image-url.png" alt="">
+                        <h3>GreenDev</h3>
+                        <p class="role-lime">Developer</p>
+                    </div>
+                    <div class="member">
+                        <img src="your-image-url.png" alt="">
+                        <h3>Quad</h3>
+                        <p class="role-light-gray">Developer in training</p>
+                    </div>
+	            <div class="member">
+                        <img src="your-image-url.png" alt="">
+                        <h3>WarHawk</h3>
+                        <p class="role-light-gray">Developer in training</p>
+                    </div>
+                </div>
+            </div>
+            <div id="messageContainer">
+                <input type="text" id="webhookInput" placeholder="Discord Webhook URL">
+                <input type="text" id="messageInput" placeholder="Enter your message">
+                <button id="confirmButton">Confirm Message</button>
+            </div>
+            <div id="frame"></div>
+        </div>
+    </div>
+
+    <script>
+
+            document.querySelector('.description').style.display = 'block';
+            document.getElementById('messageContainer').style.display = 'none';
+            document.getElementById('frame').style.display = 'none';
+
+        document.getElementById('homeButton').addEventListener('click', function() {
+            document.querySelector('.description').style.display = 'block';
+            document.getElementById('messageContainer').style.display = 'none';
+            document.getElementById('frame').style.display = 'none';
+            setActiveButton(this);
+        });
+
+        document.getElementById('webhookController').addEventListener('click', function() {
+            document.querySelector('.description').style.display = 'none';
+            document.getElementById('messageContainer').style.display = 'block';
+            document.getElementById('frame').style.display = 'block';
+            setActiveButton(this);
+        });
+
+        document.getElementById('confirmButton').addEventListener('click', function() {
+            const message = document.getElementById('messageInput').value;
+            const webhookUrl = document.getElementById('webhookInput').value;
+            if (!webhookUrl) {
+                alert('Please enter a webhook URL');
+                return;
+            }
+            if (message) {
+                sendNotification(webhookUrl, message);
+            } else {
+                alert('Please enter a message');
+            }
+        });
+
+        function sendNotification(webhookUrl, message) {
+            const payload = {
+                content: message
+            };
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Notification sent successfully');
+                    alert('Notification sent successfully');
+                } else {
+                    console.error('Error sending notification');
+                    alert('Error sending notification');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error:', error);
+            });
+        }
+
+        function setActiveButton(button) {
+            document.querySelectorAll('.sidebar button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+
