@@ -4,350 +4,291 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tower Strike</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon-url.png">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            height: 100vh;
-            flex-direction: column;
-            background-color: #242424;
+            background: linear-gradient(135deg, #1d1f21, #2c2f33);
             color: #ffffff;
-            overflow-y: scroll;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
+        /* Topbar */
         .topbar {
             width: 100%;
-            background-color: #101010;
+            background-color: rgba(32, 34, 36, 0.9);
             color: white;
+            padding: 15px 20px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 10px 20px;
-            box-sizing: border-box;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
         }
 
         .topbar img {
             height: 40px;
-            margin-right: 20px;
         }
 
         .topbar h1 {
-            flex-grow: 1;
-            text-align: center;
             margin: 0;
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a::after {
+            content: '';
+            display: block;
+            height: 2px;
+            background: #f39c12;
+            transition: width 0.3s;
+            width: 0;
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         .container {
-            display: flex;
-            flex: 1;
+            margin-top: 100px;
+            padding: 0 40px;
         }
 
-        .sidebar {
-            width: 200px;
-            background-color: #101010;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-sizing: border-box;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+        section {
+            padding: 100px 0;
         }
 
-        .sidebar button {
-            background-color: #222;
-            color: white;
-            border: none;
-            padding: 10px;
-            margin: 5px 0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            transition: background-color 0.3s ease;
+        h2 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f39c12;
+            text-shadow: 0 0 10px rgba(243, 156, 18, 0.8);
         }
 
-        .sidebar button:hover {
-            background-color: #555;
-        }
-
-        .sidebar button i {
-            margin-right: 10px;
-        }
-
-        .sidebar button.active {
-            background-color: #555;
-            color: white;
-            cursor: pointer;
-        }
-
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-        }
-
-        .description, #messageContainer, #frame, #webhookContainer {
-            display: none;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .description {
-            align-self: flex-start;
-        }
-
-        .description h2 {
-            margin-left: 10px;
-        }
-
-        .description p {
-            margin-left: 20px;
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            width: 300px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        #messageInput {
-            margin-top: 10px;
-        }
-
-        button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #333;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        button:disabled {
-            background-color: #222;
-            color: gray;
-            cursor: not-allowed;
-        }
-
-        button:hover:not(:disabled) {
-            background-color: #555;
-        }
-
-        #frame {
-            border: 1px solid #ddd;
-            padding: 20px;
-            background-color: #f9f9f9;
-            margin-top: 20px;
-            color: #000;
-            border-radius: 5px;
-        }
-
-        .description h2, .description p {
-            animation: fadeIn 1s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-                flex-direction: row;
-                justify-content: space-around;
-                box-shadow: none;
-            }
-
-            .content {
-                padding: 10px;
-            }
-        }
-
-        .team {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            margin-top: 30px;
-            margin-left: 10px;
-        }
-
-        .team .member {
-            background-color: #333;
-            border-radius: 10px;
-            margin: 10px;
-            padding: 20px;
-            width: 180px;
-            text-align: center;
-            transition: transform 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .team .member:hover {
-            transform: scale(1.05);
-        }
-
-        .team .member img {
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            margin-bottom: 10px;
-        }
-
-        .team .member h3 {
-            margin-top: 10px;
-            margin-bottom: 5px;
+        p {
             font-size: 18px;
+            line-height: 1.6;
+            color: #dcdcdc;
         }
 
-        .team .member p {
+        .about-section, .team-section, .update-section {
+            display: flex;
+            justify-content: space-between;
+            padding: 80px 40px;
+            background-color: rgba(36, 38, 43, 0.9);
+            border-radius: 15px;
+            margin-bottom: 60px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-section img, .team-section img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(243, 156, 18, 0.5);
+        }
+
+        /* Team Cards */
+        .team-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+        }
+
+        .team-member {
+            background-color: #444;
+            padding: 25px;
+            border-radius: 10px;
+            width: 220px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(243, 156, 18, 0.5);
+        }
+
+        .team-member img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+        }
+
+        .team-member h3 {
+            margin: 15px 0;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .team-member .role {
+            font-size: 14px;
+            color: #f39c12;
+        }
+
+        /* Buttons */
+        .open-log-btn {
+            background-color: #f39c12;
+            border: none;
+            color: #fff;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .open-log-btn:hover {
+            background-color: #d68b07;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(32, 34, 36, 0.9);
+            color: #888;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer p {
             margin: 0;
             font-size: 14px;
         }
 
-        .role-green { color: #00ff00; }
-        .role-purple { color: #800080; }
-        .role-cyan { color: #00ffff; }
-        .role-dark-green { color: #006400; }
-        .role-lime { color: #00ff00; }
-        .role-light-gray { color: #d3d3d3; }
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .topbar h1 {
+                font-size: 20px;
+            }
+
+            .about-section, .team-section, .update-section {
+                flex-direction: column;
+                padding: 60px 20px;
+            }
+
+            .team-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+    <!-- Topbar -->
     <div class="topbar">
-        <img src="your-logo-url.png" alt="Logo">
+        <img src="your-logo-url.png" alt="Tower Strike Logo">
         <h1>Tower Strike</h1>
-        <div style="width: 60px;"></div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#team">The Team</a>
+            <a href="#updates">Update Log</a>
+        </nav>
     </div>
+
     <div class="container">
-        <div class="sidebar">
-            <button id="homeButton" class="home active"><i class="fas fa-home"></i> Home</button>
-            <button disabled><i class="fas fa-lock"></i> Disabled</button>
-            <button disabled><i class="fas fa-lock"></i> Disabled</button>
-            <button id="webhookController"><i class="fas fa-paper-plane"></i> WebHookController</button>
-        </div>
-        <div class="content">
-            <div class="description">
-                <h2>- Description</h2>
-                <p>Welcome to the Tower Strike Community</p>
-                <p>Tower Strike is an exciting tower defense game where you strategize to protect your base from waves of enemies.</p>
-                <p>Join our community to get the latest updates, share your strategies, and connect with other players.</p>
-                <p>More features will be added soon.</p>
-                <h2>- The Team</h2>
-                <div class="team">
-                    <div class="member">
-                        <img src="PHOTOS/MIRKOPHOTO.png" alt="Owner of Tower Strike">
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="about-content">
+                <h2>About Tower Strike</h2>
+                <p>Tower Strike is a Roblox tower defense game where players must defend their base from waves of enemies. Get ready for strategic battles and challenging gameplay. <br> Join our <a href="https://discord.gg/M5MgmHr27c" target="_blank">communications</a> server! <br> Play the <a href="" target="_blank">game</a> ! (Note: the game is not currently out so there is no link.) </p>
+            </div>
+            <img src="your-image-url.png" alt="Tower Strike Game Image">
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="team-section">
+            <div class="team-content">
+                <h2>Meet the Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="PHOTOS/MIRKOPHOTO.png" alt="mirkokraft">
                         <h3>mirkokraft</h3>
-                        <p class="role-green">Owner</p>
+                        <p class="role">Owner</p>
                     </div>
-                    <div class="member">
-                        <img src="PHOTOS/DARTHPHOTO.png" alt="Lead Developer of Tower Strike">
+                    <div class="team-member">
+                        <img src="PHOTOS/DARTHPHOTO.png" alt="Darth_Vader">
                         <h3>Darth_Vader</h3>
-                        <p class="role-purple">Head Developer</p>
+                        <p class="role">Lead Developer</p>
                     </div>
-                    <div class="member">
-                        <img src="PHOTOS/CRANMYPHOTO.png" alt="Senior Developer of Tower Strike and our Marketing Head">
-                        <h3>Adolf Ragequitler</h3>
-                        <p class="role-cyan">Senior Developer / Marketing Head</p>
+                    <div class="team-member">
+                        <img src="PHOTOS/CRANMYPHOTO.png" alt="CraNmy">
+                        <h3>CraNmy</h3>
+                        <p class="role">Marketing Head</p>
                     </div>
-                    <div class="member">
-                        <img src="PHOTOS/BOBPHOTO.png" alt="Developer of Tower Strike">
-                        <h3>Happy Bob</h3>
-                        <p class="role-dark-green">Experienced Developer</p>
+                    <div class="team-member">
+                        <img src="PHOTOS/BOBPHOTO.png" alt="Bob">
+                        <h3>Bob</h3>
+                        <p class="role">Developer</p>
                     </div>
+		<h4> Special thanks to Specter and ATAbhinav for helping out! </h4>
                 </div>
             </div>
-            <div id="messageContainer">
-                <input type="text" id="webhookInput" placeholder="Discord Webhook URL">
-                <input type="text" id="messageInput" placeholder="Enter your message">
-                <button id="confirmButton">Confirm Message</button>
+        </section>
+
+        <!-- Update Section -->
+        <section id="updates" class="update-section">
+            <div class="update-content">
+                <h2>Updates</h2>
+                <p>This game is currently in development, so there is no update log available yet. Stay tuned for more information!</p>
+                <button class="open-log-btn" onclick="openUpdateFrame()" disabled>See Updates</button>
             </div>
-            <div id="frame"></div>
-        </div>
+        </section>
     </div>
 
+    <!-- Update Log Frame -->
+    <div id="updateFrame" class="update-frame">
+        <button class="close-btn" onclick="closeUpdateFrame()">Close</button>
+        <h2>Update Log</h2>
+        <p>No updates available yet. The game is still in development!</p>
+        <img src="your-image-url.png" alt="Update Image">
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Tower Strike. All Rights Reserved.</p>
+    </footer>
+
     <script>
+         document.getElementById('updateFrame').style.display = 'none';
 
-            document.querySelector('.description').style.display = 'block';
-            document.getElementById('messageContainer').style.display = 'none';
-            document.getElementById('frame').style.display = 'none';
-
-        document.getElementById('homeButton').addEventListener('click', function() {
-            document.querySelector('.description').style.display = 'block';
-            document.getElementById('messageContainer').style.display = 'none';
-            document.getElementById('frame').style.display = 'none';
-            setActiveButton(this);
-        });
-
-        document.getElementById('webhookController').addEventListener('click', function() {
-            document.querySelector('.description').style.display = 'none';
-            document.getElementById('messageContainer').style.display = 'block';
-            document.getElementById('frame').style.display = 'block';
-            setActiveButton(this);
-        });
-
-        document.getElementById('confirmButton').addEventListener('click', function() {
-            const message = document.getElementById('messageInput').value;
-            const webhookUrl = document.getElementById('webhookInput').value;
-            if (!webhookUrl) {
-                alert('Please enter a webhook URL');
-                return;
-            }
-            if (message) {
-                sendNotification(webhookUrl, message);
-            } else {
-                alert('Please enter a message');
-            }
-        });
-
-        function sendNotification(webhookUrl, message) {
-            const payload = {
-                content: message
-            };
-
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Notification sent successfully');
-                    alert('Notification sent successfully');
-                } else {
-                    console.error('Error sending notification');
-                    alert('Error sending notification');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error:', error);
-            });
+        function openUpdateFrame() {
+            document.getElementById('updateFrame').style.display = 'block';
         }
 
-        function setActiveButton(button) {
-            document.querySelectorAll('.sidebar button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            button.classList.add('active');
+        function closeUpdateFrame() {
+            document.getElementById('updateFrame').style.display = 'none';
         }
     </script>
 </body>
 </html>
-
