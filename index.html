@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -236,6 +236,59 @@
             transition: background-color 0.3s ease;
         }
 
+body.dark-mode {
+    background-color: #333;
+    color: #f5f5f5;
+}
+
+section.dark-mode {
+    background-color: #444;
+}
+
+.topbar.dark-mode {
+    background-color: #1e272e;
+}
+
+.cta-section.dark-mode {
+    background-color: #1e272e;
+}
+
+.interactive-section.dark-mode {
+    background-color: #2c3e50;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode .topbar {
+    background-color: #1e1e1e;
+}
+
+body.dark-mode section {
+    background-color: #2e2e2e;
+}
+
+body.dark-mode h2 {
+    color: #5e9cd3; /* Lighter blue in dark mode */
+}
+
+body.dark-mode p {
+    color: #ffffff; /* White text in dark mode */
+}
+
+/* Button specific styles */
+button.dark-mode-toggle {
+    background-color: #f39c12;
+    color: #ffffff;
+}
+
+button.dark-mode-toggle:hover {
+    background-color: #e67e22;
+}
+
+
         .interactive-section button:hover {
             background-color: #34495e;
         }
@@ -301,6 +354,7 @@
             <a href="#updates">Updates</a>
             <a href="#interactive">Fun Feature</a>
         </nav>
+	<button id="dark-mode-toggle">Dark Mode</button>
     </div>
 
     <div class="container">
@@ -395,11 +449,55 @@
                 const targetId = this.getAttribute('href').substring(1);
                 const targetSection = document.getElementById(targetId);
                 window.scrollTo({
-                    top: targetSection.offsetTop - 30,
+                    top: targetSection.offsetTop - 1222,
                     behavior: 'smooth'
                 });
             });
         });
+
+document.addEventListener("DOMContentLoaded", function() {
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        const sections = document.querySelectorAll('section');
+        const topbar = document.querySelector('.topbar');
+        const ctaSection = document.querySelector('.cta-section');
+        const interactiveSection = document.querySelector('.interactive-section');
+
+        // Check for saved dark mode preference
+        const savedMode = localStorage.getItem('darkMode');
+        if (savedMode === 'enabled') {
+            enableDarkMode();
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            const darkModeEnabled = body.classList.contains('dark-mode');
+            if (darkModeEnabled) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+
+        function enableDarkMode() {
+            body.classList.add('dark-mode');
+            sections.forEach(section => section.classList.add('dark-mode'));
+            topbar.classList.add('dark-mode');
+            ctaSection.classList.add('dark-mode');
+            interactiveSection.classList.add('dark-mode');
+            darkModeToggle.textContent = 'Light Mode';
+            localStorage.setItem('darkMode', 'enabled');
+        }
+
+        function disableDarkMode() {
+            body.classList.remove('dark-mode');
+            sections.forEach(section => section.classList.remove('dark-mode'));
+            topbar.classList.remove('dark-mode');
+            ctaSection.classList.remove('dark-mode');
+            interactiveSection.classList.remove('dark-mode');
+            darkModeToggle.textContent = 'Dark Mode';
+            localStorage.setItem('darkMode', 'disabled');
+        }
+    });
 
         document.addEventListener("DOMContentLoaded", function() {
             const lazyImages = document.querySelectorAll('img[data-src]');
