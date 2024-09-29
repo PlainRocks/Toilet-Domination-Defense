@@ -355,6 +355,7 @@ button.dark-mode-toggle:hover {
             <a href="#interactive">Fun Feature</a>
         </nav>
 	<button id="dark-mode-toggle">Dark Mode</button>
+	<button id="music-button">Play Music</button>
     </div>
 
     <div class="container">
@@ -542,6 +543,24 @@ document.addEventListener("DOMContentLoaded", function() {
         function closeUpdateFrame() {
             document.getElementById('updateFrame').style.display = 'none';
         }
+
+ const music = new Audio('SOUNDS/LOBBY.mp3');
+            const musicButton = document.getElementById('music-button');
+
+            let isPlaying = false;
+	    music.loop = true;
+
+            musicButton.addEventListener('click', () => {
+                if (isPlaying) {
+                    music.pause();
+                    musicButton.textContent = 'Play Music';
+                } else {
+                    music.play();
+                    musicButton.textContent = 'Mute Music';
+                }
+                isPlaying = !isPlaying;
+            });
+
     </script>
 </body>
 </html>
