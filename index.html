@@ -311,51 +311,62 @@
             <p>Want to see how you rank among other players? Click the button below to view the leaderboard!</p>
             <button onclick="alert('Leaderboard feature coming soon!')">View Leaderboard</button>
         </section>
-
-        <section class="cta-section">
-            <h2>Join the Battle!</h2>
-            <p>Are you ready to defend your base and flush away the competition? Play Toilet Domination Defense today and experience the fun!</p>
-            <div class="cta-buttons">
-                <a href="#">Play Now</a>
-                <a href="#">Join Discord</a>
-            </div>
-        </section>
+<section class="cta-section">
+    <h2>Join the Battle!</h2>
+    <p>Are you ready to defend your base and flush away the competition? Play Toilet Domination Defense today and experience the fun!</p>
+    <div class="cta-buttons">
+        <a href="https://discord.gg/bE8qN3UMxa" target="_blank">Join Discord</a>
+        <button id="play-now">Play Now</button>
     </div>
+</section>
 
-    <footer>
-        <p>&copy; 2024 Toilet Domination Defense. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Smooth scroll on navigation link click
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+<script>
+    // Smooth scroll on navigation link click
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             });
         });
+    });
 
-        // Dark mode toggle
-        const toggle = document.getElementById('dark-mode-toggle');
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            toggle.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+    // Dark mode toggle
+    const toggle = document.getElementById('dark-mode-toggle');
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        toggle.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+    });
+
+    // Section fade-in on scroll
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
         });
+    }, { threshold: 0.2 });
 
-        // Section fade-in on scroll
-        const sections = document.querySelectorAll('section');
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.2 });
+    sections.forEach(section => observer.observe(section));
 
-        sections.forEach(section => observer.observe(section));
-    </script>
+    // Play Now button error
+    document.getElementById('play-now').addEventListener('click', () => {
+        const errorMessage = document.createElement('p');
+        errorMessage.textContent = "Error: The game is currently under development. Please check back soon!";
+        errorMessage.style.color = "#e74c3c";
+        errorMessage.style.marginTop = "20px";
+        errorMessage.style.fontWeight = "bold";
+
+        // Remove any existing error messages before showing a new one
+        const ctaSection = document.querySelector('.cta-section');
+        const existingError = ctaSection.querySelector('p.error');
+        if (existingError) existingError.remove();
+
+        errorMessage.classList.add('error');
+        ctaSection.appendChild(errorMessage);
+    });
+</script>
 </body>
 </html>
 
