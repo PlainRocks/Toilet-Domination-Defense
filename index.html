@@ -46,6 +46,7 @@
         nav {
             display: flex;
             gap: 20px;
+            align-items: center;
         }
 
         nav a {
@@ -61,6 +62,69 @@
             color: #4caf50;
         }
 
+        .meet-team-button {
+            position: relative;
+        }
+
+        .dropdown-frame {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            background-color: #2c3e50;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+        }
+
+        .dropdown-frame button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-frame button:hover {
+            background-color: #3d8b3b;
+        }
+
+        .meet-team-button:hover .dropdown-frame {
+            display: block;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .frame {
+            display: none;
+            background-color: #2c3e50;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+
+        .frame button {
+            margin: 10px;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .frame button:hover {
+            background-color: #3d8b3b;
+        }
+
         .container {
             margin-top: 100px;
             padding: 0 40px;
@@ -70,177 +134,7 @@
         }
 
         section {
-            padding: 100px 0;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            text-align: left;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 32px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #f4d03f;
-            margin-left: 0;
-        }
-
-        p {
-            font-size: 16px;
-            color: #dcdde1;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .about-section, .team-section, .update-section, .features-section, .cta-section, .interactive-section {
-            background: #2c3e50;
-            padding: 80px 60px;
-            border-radius: 10px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-            margin-bottom: 60px;
-            text-align: center;
-        }
-
-        .about-section img, .team-section img {
-            max-width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .about-section img:hover, .team-section img:hover {
-            transform: scale(1.03);
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            justify-content: center;
-        }
-
-        .team-member {
-            background-color: #394867;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .team-member:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-        }
-
-        .team-member img {
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            margin-bottom: 10px;
-        }
-
-        .team-member h3 {
-            margin: 15px 0;
-            font-size: 20px;
-            font-weight: 500;
-            color: #f4d03f;
-        }
-
-        .team-member .role {
-            font-size: 14px;
-            color: #4caf50;
-            margin-bottom: 10px;
-        }
-
-        .features-section {
-            text-align: left;
-        }
-
-        .features-list {
-            list-style: none;
-            padding: 0;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .features-list li {
-            font-size: 18px;
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
-        }
-
-        .features-list li::before {
-            content: '✔';
-            position: absolute;
-            left: 0;
-            color: #4caf50;
-        }
-
-        .cta-section {
-            text-align: center;
-            background-color: #1e1e2f;
-            color: #f4d03f;
-            padding: 60px;
-            border-radius: 10px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .cta-buttons a {
-            background-color: #4caf50;
-            color: white;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            font-size: 16px;
-        }
-
-        .cta-buttons a:hover {
-            background-color: #3d8b3b;
-        }
-
-        footer {
-            background-color: #25274d;
-            color: #dcdde1;
-            padding: 20px;
-            text-align: center;
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 14px;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                display: none;
-            }
-
-            .about-section, .team-section, .update-section, .features-section, .cta-section, .interactive-section {
-                padding: 60px 20px;
-            }
-
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-            }
+            display: none; /* Hide all sections */
         }
 
     </style>
@@ -251,122 +145,52 @@
         <h1>Toilet Domination Defense</h1>
         <nav>
             <a href="#about">About</a>
-            <a href="#features">Features</a>
-            <a href="#team">The Team</a>
-            <a href="#updates">Updates</a>
-            <a href="#interactive">Fun Feature</a>
+            <div class="meet-team-button">
+                <a href="#">Meet the Team</a>
+                <div class="dropdown-frame">
+                    <button id="devs-button">Developers</button>
+                    <button id="staff-button">Staff</button>
+                </div>
+            </div>
         </nav>
-        <button id="dark-mode-toggle">Dark Mode</button>
     </div>
 
     <div class="container">
-        <section id="about" class="about-section">
-            <h2>About Toilet Domination Defense</h2>
-            <p>Toilet Domination Defense is a strategic Roblox tower defense game filled with hilarious challenges and tactical gameplay. Defend your base against waves of unruly hilarious toilet-themed enemies while strategically placing your defenses to ensure victory. With unique mechanics and a variety of towers, the game offers endless fun for players of all ages. Get ready to flush out the competition and dominate!</p>
-            <img src="PHOTOS/about_game.jpg" alt="Game Screenshot">
-        </section>
+        <div id="dev-frame" class="frame">
+            <h2>Developers</h2>
+            <button>Dev 1</button>
+            <button>Dev 2</button>
+            <button>Dev 3</button>
+        </div>
 
-        <section id="features" class="features-section">
-            <h2>Game Features</h2>
-            <ul class="features-list">
-                <li>Unique toilet-themed towers with hilarious abilities.</li>
-                <li>Exciting waves of quirky enemies to challenge your strategy.</li>
-                <li>Customizable tower upgrades to enhance your defenses.</li>
-                <li>Multiplayer co-op mode to team up with friends.</li>
-                <li>Leaderboards to showcase your dominance!</li>
-            </ul>
-        </section>
-
-        <section id="team" class="team-section">
-            <h2>Meet The Team</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <img src="PHOTOS/team1.jpg" alt="Team Member">
-                    <h3>John Doe</h3>
-                    <p class="role">Lead Developer</p>
-                    <p>John is the mastermind behind the gameplay mechanics, bringing the game to life with innovative coding techniques.</p>
-                </div>
-                <div class="team-member">
-                    <img src="PHOTOS/team2.jpg" alt="Team Member">
-                    <h3>Jane Smith</h3>
-                    <p class="role">Game Designer</p>
-                    <p>Jane designs the hilarious towers and enemies, ensuring the game is both fun and challenging.</p>
-                </div>
-                <div class="team-member">
-                    <img src="PHOTOS/team3.jpg" alt="Team Member">
-                    <h3>Mark Johnson</h3>
-                    <p class="role">Community Manager</p>
-                    <p>Mark engages with players, gathers feedback, and ensures everyone feels part of the Toilet Domination community.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="updates" class="update-section">
-            <h2>Game Updates</h2>
-            <p>Stay tuned for exciting updates and new features coming soon to Toilet Domination Defense!</p>
-        </section>
-
-        <section id="interactive" class="interactive-section">
-            <h2>Fun Feature</h2>
-            <p>Want to see how you rank among other players? Click the button below to view the leaderboard!</p>
-            <button onclick="alert('Leaderboard feature coming soon!')">View Leaderboard</button>
-        </section>
-<section class="cta-section">
-    <h2>Join the Battle!</h2>
-    <p>Are you ready to defend your base and flush away the competition? Play Toilet Domination Defense today and experience the fun!</p>
-    <div class="cta-buttons">
-        <a href="https://discord.gg/bE8qN3UMxa" target="_blank">Join Discord</a>
-        <button id="play-now">Play Now</button>
+        <div id="staff-frame" class="frame">
+            <h2>Staff</h2>
+            <button>Staff 1</button>
+            <button>Staff 2</button>
+            <button>Staff 3</button>
+        </div>
     </div>
-</section>
 
-<script>
-    // Smooth scroll on navigation link click
-    document.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+    <script>
+        const devFrame = document.getElementById('dev-frame');
+        const staffFrame = document.getElementById('staff-frame');
+        const devsButton = document.getElementById('devs-button');
+        const staffButton = document.getElementById('staff-button');
+        const sections = document.querySelectorAll('section');
+
+        devsButton.addEventListener('click', () => {
+            // Hide other sections and frames
+            sections.forEach(section => section.style.display = 'none');
+            staffFrame.style.display = 'none';
+            devFrame.style.display = 'block';
         });
-    });
 
-    // Dark mode toggle
-    const toggle = document.getElementById('dark-mode-toggle');
-    toggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        toggle.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
-    });
-
-    // Section fade-in on scroll
-    const sections = document.querySelectorAll('section');
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+        staffButton.addEventListener('click', () => {
+            // Hide other sections and frames
+            sections.forEach(section => section.style.display = 'none');
+            devFrame.style.display = 'none';
+            staffFrame.style.display = 'block';
         });
-    }, { threshold: 0.2 });
-
-    sections.forEach(section => observer.observe(section));
-
-    // Play Now button error
-    document.getElementById('play-now').addEventListener('click', () => {
-        const errorMessage = document.createElement('p');
-        errorMessage.textContent = "Error: The game is currently under development. Please check back soon!";
-        errorMessage.style.color = "#e74c3c";
-        errorMessage.style.marginTop = "20px";
-        errorMessage.style.fontWeight = "bold";
-
-        // Remove any existing error messages before showing a new one
-        const ctaSection = document.querySelector('.cta-section');
-        const existingError = ctaSection.querySelector('p.error');
-        if (existingError) existingError.remove();
-
-        errorMessage.classList.add('error');
-        ctaSection.appendChild(errorMessage);
-    });
-</script>
+    </script>
 </body>
 </html>
-
