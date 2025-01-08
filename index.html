@@ -1,196 +1,295 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toilet Domination Defense</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="PHOTOS/FI.png">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #1e1e2f;
-            color: #ececec;
-            line-height: 1.6;
-            scroll-behavior: smooth;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
 
-        .topbar {
-            width: 100%;
-            background-color: #25274d;
-            color: #ececec;
-            padding: 15px 20px;
+        body {
+            background: linear-gradient(135deg, #00008b, #8b0000);
+            color: #fff;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            position: fixed;
+            justify-content: flex-start;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.8);
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
             top: 0;
-            z-index: 1000;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-        }
-
-        .topbar img {
-            height: 40px;
-        }
-
-        .topbar h1 {
-            margin: 0;
-            font-size: 24px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-        }
-
-        nav {
             display: flex;
-            gap: 20px;
+            flex-direction: column;
             align-items: center;
         }
 
-        nav a {
-            color: #f4d03f;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            position: relative;
-            transition: color 0.3s;
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Georgia', serif;
+            margin-bottom: 10px;
         }
 
-        nav a:hover {
-            color: #4caf50;
-        }
-
-        .meet-team-button {
-            position: relative;
-        }
-
-        .dropdown-frame {
-            display: none;
+        .icon-right {
             position: absolute;
-            top: 50px;
-            left: 0;
-            background-color: #2c3e50;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            padding: 10px;
-        }
-
-        .dropdown-frame button {
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: url('https://via.placeholder.com/60') no-repeat center;
+            background-size: contain;
             cursor: pointer;
-            margin: 5px 0;
-            width: 100%;
-            transition: background-color 0.3s;
+            transition: transform 0.2s;
         }
 
-        .dropdown-frame button:hover {
-            background-color: #3d8b3b;
-        }
-
-        .meet-team-button:hover .dropdown-frame {
-            display: block;
-        }
-
-        .hidden {
-            display: none !important;
+        .icon-right:hover {
+            transform: scale(1.1);
         }
 
         .frame {
-            display: none;
-            background-color: #2c3e50;
+            position: absolute;
+            top: calc(80px + 60px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(20, 20, 20, 0.95);
+            color: #ffffff;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            width: 300px;
             text-align: center;
         }
 
+        .frame input {
+            padding: 10px;
+            border: 1px solid #ffd700;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+            background-color: #1a1a1a;
+            color: #ffd700;
+        }
+
         .frame button {
-            margin: 10px;
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 20px;
+            background: #ffd700;
+            color: #1a1a1a;
             border: none;
+            padding: 10px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 1rem;
+            transition: background 0.3s;
         }
 
         .frame button:hover {
-            background-color: #3d8b3b;
+            background: #ffcc33;
+            color: #000;
         }
 
-        .container {
-            margin-top: 100px;
-            padding: 0 40px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+        .login-frame, .signup-frame {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 300px;
+            justify-content: center;
+            display: none;
         }
 
-        section {
-            display: none; /* Hide all sections */
+        .options-frame {
+            width: 300px;
+            height: 150px;
+            gap: 10px;
         }
-
     </style>
 </head>
 <body>
-    <div class="topbar">
-        <img src="PHOTOS/FI.png" alt="Toilet Domination Defense Logo">
+    <header>
         <h1>Toilet Domination Defense</h1>
-        <nav>
-            <a href="#about">About</a>
-            <div class="meet-team-button">
-                <a href="#">Meet the Team</a>
-                <div class="dropdown-frame">
-                    <button id="devs-button">Developers</button>
-                    <button id="staff-button">Staff</button>
-                </div>
-            </div>
-        </nav>
+        <div class="icon-right" id="profile-icon"></div>
+    </header>
+
+    <!-- Initial frame with buttons -->
+    <div class="frame" id="button-frame">
+        <button id="open-login">Login</button>
+        <button id="open-signup">Sign Up</button>
     </div>
 
-    <div class="container">
-        <div id="dev-frame" class="frame">
-            <h2>Developers</h2>
-            <button>Dev 1</button>
-            <button>Dev 2</button>
-            <button>Dev 3</button>
-        </div>
+    <!-- Login options frame -->
+    <div class="frame options-frame" id="login-options-frame">
+        <button id="login-email">Login with Email</button>
+        <button id="login-google">Login with Google</button>
+    </div>
 
-        <div id="staff-frame" class="frame">
-            <h2>Staff</h2>
-            <button>Staff 1</button>
-            <button>Staff 2</button>
-            <button>Staff 3</button>
-        </div>
+    <!-- Signup options frame -->
+    <div class="frame options-frame" id="signup-options-frame">
+        <button id="signup-email">Sign Up with Email</button>
+        <button id="signup-google">Sign Up with Google</button>
+    </div>
+
+    <!-- Login frame -->
+    <div class="frame login-frame" id="login-frame">
+        <h2>Login</h2>
+        <input type="email" id="login-email-input" placeholder="Email" required />
+        <input type="password" id="login-password-input" placeholder="Password" required />
+        <button id="login-submit">Login</button>
+    </div>
+
+    <!-- Signup frame -->
+    <div class="frame signup-frame" id="signup-frame">
+        <h2>Sign Up</h2>
+        <input type="email" id="signup-email-input" placeholder="Email" required />
+        <input type="password" id="signup-password-input" placeholder="Password" required />
+        <button id="signup-submit">Sign Up</button>
     </div>
 
     <script>
-        const devFrame = document.getElementById('dev-frame');
-        const staffFrame = document.getElementById('staff-frame');
-        const devsButton = document.getElementById('devs-button');
-        const staffButton = document.getElementById('staff-button');
-        const sections = document.querySelectorAll('section');
+        const profileIcon = document.getElementById("profile-icon");
+        const buttonFrame = document.getElementById("button-frame");
+        const loginOptionsFrame = document.getElementById("login-options-frame");
+        const signupOptionsFrame = document.getElementById("signup-options-frame");
+        const loginFrame = document.getElementById("login-frame");
+        const signupFrame = document.getElementById("signup-frame");
 
-        devsButton.addEventListener('click', () => {
-            // Hide other sections and frames
-            sections.forEach(section => section.style.display = 'none');
-            staffFrame.style.display = 'none';
-            devFrame.style.display = 'block';
+        const openLogin = document.getElementById("open-login");
+        const openSignup = document.getElementById("open-signup");
+
+        const loginEmailButton = document.getElementById("login-email");
+        const signupEmailButton = document.getElementById("signup-email");
+
+        // Toggle initial frame visibility
+        profileIcon.addEventListener("click", (event) => {
+            event.stopPropagation();
+            if (loginFrame.style.display === "flex" || signupFrame.style.display === "flex") {
+                return; // Prevent opening icon frame when login/signup frames are open
+            }
+            buttonFrame.style.display = buttonFrame.style.display === "none" || buttonFrame.style.display === "" ? "flex" : "none";
         });
 
-        staffButton.addEventListener('click', () => {
-            // Hide other sections and frames
-            sections.forEach(section => section.style.display = 'none');
-            devFrame.style.display = 'none';
-            staffFrame.style.display = 'block';
+        // Open login options frame
+        openLogin.addEventListener("click", (event) => {
+            event.stopPropagation();
+            buttonFrame.style.display = "none";
+            loginOptionsFrame.style.display = "flex";
+        });
+
+        // Open signup options frame
+        openSignup.addEventListener("click", (event) => {
+            event.stopPropagation();
+            buttonFrame.style.display = "none";
+            signupOptionsFrame.style.display = "flex";
+        });
+
+        // Open login frame from options
+        loginEmailButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            loginOptionsFrame.style.display = "none";
+            loginFrame.style.display = "flex";
+        });
+
+        // Open signup frame from options
+        signupEmailButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            signupOptionsFrame.style.display = "none";
+            signupFrame.style.display = "flex";
+        });
+
+        // Close frames when clicking outside
+        document.addEventListener("click", () => {
+            buttonFrame.style.display = "none";
+            loginOptionsFrame.style.display = "none";
+            signupOptionsFrame.style.display = "none";
+            loginFrame.style.display = "none";
+            signupFrame.style.display = "none";
+        });
+
+        // Prevent frames from closing when clicked
+        [buttonFrame, loginOptionsFrame, signupOptionsFrame, loginFrame, signupFrame].forEach((frame) => {
+            frame.addEventListener("click", (event) => {
+                event.stopPropagation();
+            });
+        });
+
+        // Login button functionality
+        document.getElementById("login-submit").addEventListener("click", () => {
+            const email = document.getElementById("login-email-input").value;
+            const password = document.getElementById("login-password-input").value;
+            alert(`Logging in with email: ${email}`);
+        });
+
+        // Signup button functionality
+        document.getElementById("signup-submit").addEventListener("click", () => {
+            const email = document.getElementById("signup-email-input").value;
+            const password = document.getElementById("signup-password-input").value;
+            alert(`Signing up with email: ${email}`);
         });
     </script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDAjEAyzffKddRUx5ZLXbSfhERT_PRCxew",
+        authDomain: "websitetdd-20dbf.firebaseapp.com",
+        projectId: "websitetdd-20dbf",
+        storageBucket: "websitetdd-20dbf.appspot.com",
+        messagingSenderId: "700566479561",
+        appId: "1:700566479561:web:3c1b1168956de3ad002318",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // Handle Google Login
+    const loginGoogleButton = document.getElementById("login-google");
+    loginGoogleButton.addEventListener("click", async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            alert(`Logged in as: ${user.displayName}`);
+            loginOptionsFrame.style.display = "none"; // Close the options frame
+        } catch (error) {
+            alert(`Error: ${error.message}`);
+        }
+    });
+
+    // Handle Google Sign-Up (same logic as login for popup)
+    const signupGoogleButton = document.getElementById("signup-google");
+    signupGoogleButton.addEventListener("click", async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            alert(`Signed up as: ${user.displayName}`);
+            signupOptionsFrame.style.display = "none"; // Close the options frame
+        } catch (error) {
+            alert(`Error: ${error.message}`);
+        }
+    });
+
+    // Email login and signup logic remains the same as before.
+</script>
+  
 </body>
 </html>
+
