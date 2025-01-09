@@ -61,63 +61,98 @@
             transform: scale(1.1);
         }
 
-        .frame {
-            position: absolute;
-            top: calc(80px + 60px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(20, 20, 20, 0.95);
-            color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
+        .main-content {
+            display: flex;
+            width: 90%;
+            height: calc(100vh - 80px);
+            margin-top: 20px;
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-            display: none;
-            flex-direction: column;
-            gap: 15px;
-            width: 300px;
-            text-align: center;
+            overflow: hidden;
+            position: relative;
         }
 
-        .frame input {
+        .left-section {
+            flex: 3;
+            padding: 20px;
+            color: #ffd700;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 2px solid #ffd700;
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
             padding: 10px;
-            border: 1px solid #ffd700;
-            border-radius: 5px;
-            width: 100%;
+            color: #fff;
+        }
+
+        .chat-message {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
             margin-bottom: 10px;
-            background-color: #1a1a1a;
+        }
+
+        .chat-message .icon {
+            width: 40px;
+            height: 40px;
+            background: #ffd700;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .chat-message .content {
+            background: rgba(50, 50, 50, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .chat-message .email {
+            font-size: 0.8rem;
+            color: #ffd700;
+            margin-bottom: 5px;
+        }
+
+        .chat-input {
+            display: flex;
+            border-top: 2px solid #ffd700;
+            padding: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            margin-right: 10px;
+            background: rgba(30, 30, 30, 0.9);
             color: #ffd700;
         }
 
-        .frame button {
+        .chat-input button {
             background: #ffd700;
-            color: #1a1a1a;
+            color: #000;
             border: none;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1rem;
             transition: background 0.3s;
         }
 
-        .frame button:hover {
+        .chat-input button:hover {
             background: #ffcc33;
-            color: #000;
-        }
-
-        .login-frame, .signup-frame {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 400px;
-            height: 300px;
-            justify-content: center;
-            display: none;
-        }
-
-        .options-frame {
-            width: 300px;
-            height: 150px;
-            gap: 10px;
         }
     </style>
 </head>
@@ -127,169 +162,70 @@
         <div class="icon-right" id="profile-icon"></div>
     </header>
 
-    <!-- Initial frame with buttons -->
-    <div class="frame" id="button-frame">
-        <button id="open-login">Login</button>
-        <button id="open-signup">Sign Up</button>
-    </div>
+    <div class="main-content">
+        <!-- Left Section -->
+        <div class="left-section">
+            <p>Welcome to Toilet Domination Defense!</p>
+            <p>Explore the site and enjoy your time.</p>
+        </div>
 
-    <!-- Login options frame -->
-    <div class="frame options-frame" id="login-options-frame">
-        <button id="login-email">Login with Email</button>
-        <button id="login-google">Login with Google</button>
-    </div>
-
-    <!-- Signup options frame -->
-    <div class="frame options-frame" id="signup-options-frame">
-        <button id="signup-email">Sign Up with Email</button>
-        <button id="signup-google">Sign Up with Google</button>
-    </div>
-
-    <!-- Login frame -->
-    <div class="frame login-frame" id="login-frame">
-        <h2>Login</h2>
-        <input type="email" id="login-email-input" placeholder="Email" required />
-        <input type="password" id="login-password-input" placeholder="Password" required />
-        <button id="login-submit">Login</button>
-    </div>
-
-    <!-- Signup frame -->
-    <div class="frame signup-frame" id="signup-frame">
-        <h2>Sign Up</h2>
-        <input type="email" id="signup-email-input" placeholder="Email" required />
-        <input type="password" id="signup-password-input" placeholder="Password" required />
-        <button id="signup-submit">Sign Up</button>
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input" placeholder="Type a message..." />
+                <button id="send-message">Send</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        const profileIcon = document.getElementById("profile-icon");
-        const buttonFrame = document.getElementById("button-frame");
-        const loginOptionsFrame = document.getElementById("login-options-frame");
-        const signupOptionsFrame = document.getElementById("signup-options-frame");
-        const loginFrame = document.getElementById("login-frame");
-        const signupFrame = document.getElementById("signup-frame");
+        const chatInput = document.getElementById("chat-input");
+        const sendMessageButton = document.getElementById("send-message");
+        const chatMessages = document.getElementById("chat-messages");
 
-        const openLogin = document.getElementById("open-login");
-        const openSignup = document.getElementById("open-signup");
+        // Mock email for demonstration purposes
+        const userEmail = "user@example.com";
 
-        const loginEmailButton = document.getElementById("login-email");
-        const signupEmailButton = document.getElementById("signup-email");
+        // Function to send a message
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message === "") return;
 
-        // Toggle initial frame visibility
-        profileIcon.addEventListener("click", (event) => {
-            event.stopPropagation();
-            if (loginFrame.style.display === "flex" || signupFrame.style.display === "flex") {
-                return; // Prevent opening icon frame when login/signup frames are open
-            }
-            buttonFrame.style.display = buttonFrame.style.display === "none" || buttonFrame.style.display === "" ? "flex" : "none";
-        });
+            const messageContainer = document.createElement("div");
+            messageContainer.classList.add("chat-message");
 
-        // Open login options frame
-        openLogin.addEventListener("click", (event) => {
-            event.stopPropagation();
-            buttonFrame.style.display = "none";
-            loginOptionsFrame.style.display = "flex";
-        });
+            const icon = document.createElement("div");
+            icon.classList.add("icon");
+            
+            const content = document.createElement("div");
+            content.classList.add("content");
 
-        // Open signup options frame
-        openSignup.addEventListener("click", (event) => {
-            event.stopPropagation();
-            buttonFrame.style.display = "none";
-            signupOptionsFrame.style.display = "flex";
-        });
+            const emailElement = document.createElement("div");
+            emailElement.classList.add("email");
+            emailElement.textContent = userEmail;
 
-        // Open login frame from options
-        loginEmailButton.addEventListener("click", (event) => {
-            event.stopPropagation();
-            loginOptionsFrame.style.display = "none";
-            loginFrame.style.display = "flex";
-        });
+            const messageElement = document.createElement("div");
+            messageElement.textContent = message;
 
-        // Open signup frame from options
-        signupEmailButton.addEventListener("click", (event) => {
-            event.stopPropagation();
-            signupOptionsFrame.style.display = "none";
-            signupFrame.style.display = "flex";
-        });
+            content.appendChild(emailElement);
+            content.appendChild(messageElement);
+            messageContainer.appendChild(icon);
+            messageContainer.appendChild(content);
 
-        // Close frames when clicking outside
-        document.addEventListener("click", () => {
-            buttonFrame.style.display = "none";
-            loginOptionsFrame.style.display = "none";
-            signupOptionsFrame.style.display = "none";
-            loginFrame.style.display = "none";
-            signupFrame.style.display = "none";
-        });
+            chatMessages.appendChild(messageContainer);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
 
-        // Prevent frames from closing when clicked
-        [buttonFrame, loginOptionsFrame, signupOptionsFrame, loginFrame, signupFrame].forEach((frame) => {
-            frame.addEventListener("click", (event) => {
-                event.stopPropagation();
-            });
-        });
+            chatInput.value = "";
+        }
 
-        // Login button functionality
-        document.getElementById("login-submit").addEventListener("click", () => {
-            const email = document.getElementById("login-email-input").value;
-            const password = document.getElementById("login-password-input").value;
-            alert(`Logging in with email: ${email}`);
-        });
-
-        // Signup button functionality
-        document.getElementById("signup-submit").addEventListener("click", () => {
-            const email = document.getElementById("signup-email-input").value;
-            const password = document.getElementById("signup-password-input").value;
-            alert(`Signing up with email: ${email}`);
+        // Event listeners for sending messages
+        sendMessageButton.addEventListener("click", sendMessage);
+        chatInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessage();
         });
     </script>
-
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
-
-    // Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyDAjEAyzffKddRUx5ZLXbSfhERT_PRCxew",
-        authDomain: "www.towerstrike.online",
-        projectId: "websitetdd-20dbf",
-        storageBucket: "websitetdd-20dbf.appspot.com",
-        messagingSenderId: "700566479561",
-        appId: "1:700566479561:web:3c1b1168956de3ad002318",
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
-
-    // Handle Google Login
-    const loginGoogleButton = document.getElementById("login-google");
-    loginGoogleButton.addEventListener("click", async () => {
-        try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            alert(`Logged in as: ${user.displayName}`);
-            loginOptionsFrame.style.display = "none"; // Close the options frame
-        } catch (error) {
-            alert(`Error: ${error.message}`);
-        }
-    });
-
-    // Handle Google Sign-Up (same logic as login for popup)
-    const signupGoogleButton = document.getElementById("signup-google");
-    signupGoogleButton.addEventListener("click", async () => {
-        try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            alert(`Signed up as: ${user.displayName}`);
-            signupOptionsFrame.style.display = "none"; // Close the options frame
-        } catch (error) {
-            alert(`Error: ${error.message}`);
-        }
-    });
-
-    // Email login and signup logic remains the same as before.
-</script>
-  
 </body>
 </html>
-
