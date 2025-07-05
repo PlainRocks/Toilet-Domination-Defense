@@ -362,12 +362,44 @@
       font-size: 1rem;
     }
   }
+
+    .notice-banner {
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 50, 50, 0.15);
+  border: 3px solid rgba(255, 0, 0, 0.5);
+  color: #ff5555;
+  font-weight: 900;
+  font-size: 1.6rem;
+  padding: 15px 30px;
+  text-align: center;
+  z-index: 50;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  border-radius: 12px;
+  animation: pulseAlert 2s infinite;
+}
+
+@keyframes pulseAlert {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+  }
+}
+    
 </style>
 
 </head>
 <body>
   <header>
     <h1>Toilet Domination Defense</h1>
+    <div class="notice-banner">
+     The game is not currently available!
+    </div>
   </header>
 
 <div class="content">
