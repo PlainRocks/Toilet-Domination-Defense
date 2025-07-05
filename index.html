@@ -32,7 +32,7 @@
     transform: translateX(-50%);
     width: 1200px;
     height: 100%;
-    background-image: url('Images/Factory.png');
+    background-image: url('PHOTOS/Factory.png');
     background-repeat: no-repeat;
     background-position: center top;
     background-size: cover;
@@ -43,7 +43,7 @@
     box-shadow: 0 0 60px rgba(0, 229, 255, 0.08);
   }
 
-  .falling-images {
+  .falling-PHOTOS {
     position: fixed;
     top: 0;
     left: 0;
@@ -85,12 +85,12 @@
     opacity: 0.06;
     z-index: -1;
     left: 0;
-    background-image: url('Images/toilet-paper-left.png');
+    background-image: url('PHOTOS/toilet-paper-left.png');
   }
 
   body::after {
     right: 0;
-    background-image: url('Images/toilet-paper-right.png');
+    background-image: url('PHOTOS/toilet-paper-right.png');
     width: 160px;
     position: fixed;
     top: 0;
@@ -378,7 +378,7 @@
 </p>
 
    <div class="image-wrapper">
-    <img src="Images/TDDBanner.webp" alt="Toilet Domination Defense Screenshot" class="screenshot" />
+    <img src="PHOTOS/TDDBanner.webp" alt="Toilet Domination Defense Screenshot" class="screenshot" />
    </div>
 
   </div>
@@ -467,55 +467,55 @@
   <h2>Our Team</h2>
   <div class="team-container">
     <div class="team-member green">
-      <img src="Images/CraNmy.png" alt="Member 1" />
+      <img src="PHOTOS/CraNmy.png" alt="Member 1" />
       <h3>CraNmy</h3>
       <p>Game Owner</p>
     </div>
 
     <div class="team-member blue">
-      <img src="Images/mE.png" alt="Member 2" />
+      <img src="PHOTOS/mE.png" alt="Member 2" />
       <h3>Nyxie</h3>
       <p>Co-Owner/Investor</p>
     </div>
 
     <div class="team-member dark-purple">
-      <img src="Images/Obseruvos.png" alt="Member 3" />
+      <img src="PHOTOS/Obseruvos.png" alt="Member 3" />
       <h3>Obseruvos</h3>
       <p>Lead Developer</p>
     </div>
 
 <div class="team-member light-purple">
-      <img src="Images/Alex.png" alt="Member 4" />
+      <img src="PHOTOS/Alex.png" alt="Member 4" />
       <h3>Alex</h3>
       <p>Developer</p>
     </div>
 
 <div class="team-member light-purple">
-      <img src="Images/Devisean.png" alt="Member 5" />
+      <img src="PHOTOS/Devisean.png" alt="Member 5" />
       <h3>Devisean</h3>
       <p>Developer</p>
     </div>
 
 <div class="team-member light-purple">
-      <img src="Images/Franz.png" alt="Member 6" />
+      <img src="PHOTOS/Franz.png" alt="Member 6" />
       <h3>Franz</h3>
       <p>Developer</p>
     </div>
 
 <div class="team-member light-purple">
-      <img src="Images/Mid.png" alt="Member 7" />
+      <img src="PHOTOS/Mid.png" alt="Member 7" />
       <h3>Mid</h3>
       <p>Developer (Builder)</p>
     </div>
 
 <div class="team-member light-purple">
-      <img src="Images/Salad.png" alt="Member 8" />
+      <img src="PHOTOS/Salad.png" alt="Member 8" />
       <h3>Salad_Koti4ka</h3>
       <p>Developer</p>
     </div>
 
 <div class="team-member light-purple">
-      <img src="Images/Shiny_Lemon.png" alt="Member 9" />
+      <img src="PHOTOS/Shiny_Lemon.png" alt="Member 9" />
       <h3>Shiny_Lemon</h3>
       <p>Developer (Modeler)</p>
     </div>
@@ -563,23 +563,23 @@
     &copy; 2025 Toilet Domination Defense. All Rights Reserved.
   </footer>
 
-  <div class="falling-images"></div>
+  <div class="falling-PHOTOS"></div>
 
   <script>
     const imagePaths = [
-      'Images/TDD ASTROPO.webp',
-      'Images/TDD CAMERAHEAD.webp',
-      'Images/TDD CUSTOM UNIT.webp',
-      'Images/TDD JUGGERNAUT.webp',
-      'Images/TDD PABLO.webp',
-      'Images/TDD PLUNGER WOMAN.webp',
-      'Images/TDD SPEAKER UNIT.webp',
-      'Images/TDD TITAN CAM.webp',
-      'Images/TDD TITAN TV.webp'
+      'PHOTOS/TDD ASTROPO.webp',
+      'PHOTOS/TDD CAMERAHEAD.webp',
+      'PHOTOS/TDD CUSTOM UNIT.webp',
+      'PHOTOS/TDD JUGGERNAUT.webp',
+      'PHOTOS/TDD PABLO.webp',
+      'PHOTOS/TDD PLUNGER WOMAN.webp',
+      'PHOTOS/TDD SPEAKER UNIT.webp',
+      'PHOTOS/TDD TITAN CAM.webp',
+      'PHOTOS/TDD TITAN TV.webp'
     ];
 
     function spawnFallingImage() {
-      const container = document.querySelector('.falling-images');
+      const container = document.querySelector('.falling-PHOTOS');
       const img = document.createElement('img');
       img.src = imagePaths[Math.floor(Math.random() * imagePaths.length)];
       img.classList.add('falling-img');
